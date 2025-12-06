@@ -1,0 +1,5 @@
+aiogram
+python-dotenv
+google-genai
+flask
+gunicorn
