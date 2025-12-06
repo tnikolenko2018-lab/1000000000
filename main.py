@@ -8,15 +8,8 @@ from aiogram import Bot
 logging.basicConfig(level=logging.INFO)
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-# ВАЖЛИВО: Замініть це на фактичний ID вашого чату/каналу, наприклад: -1001234567890
 TARGET_CHAT_ID = os.getenv("TARGET_CHAT_ID") 
 
-# Перевірка наявності змінних
-if not TELEGRAM_TOKEN or not TARGET_CHAT_ID:
-    # У цьому випадку Flask запуститься, але логуватиме помилку, щоб Gunicorn не упав одразу
-    logging.error("КРИТИЧНА ПОМИЛКА: TELEGRAM_TOKEN або TARGET_CHAT_ID не задані в Render Environment.")
-    
-# Ініціалізація Flask App і Bot
 # Gunicorn шукає саме цей об'єкт 'app'
 app = Flask(__name__) 
 bot = Bot(token=TELEGRAM_TOKEN)
@@ -75,5 +68,3 @@ async def webhook():
 @app.route('/', methods=['GET'])
 def health_check():
     return 'Bot is running and ready for webhooks.', 200
-
-# Запуск Flask не через if __name__ == '__main__':, оскільки його запускає Gunicorn
